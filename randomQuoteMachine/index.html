@@ -1,0 +1,131 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Random Quote Machine</title>
+  <meta name="description" content="A random quote machine">
+  <meta name="author" content="Golfo Vasiliou">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+  body{
+  overflow-x:hidden;  
+      background-color: #c35300;
+
+    background-image: url("robots.png");
+  }
+  
+  #quoteBoxContent{
+   font-style: italic;
+      font-size: 2.25em;
+	  font-weight:400;
+  }
+  #quoteBoxTitle{
+      font-weight: 400;
+  }
+.card .card-action {
+border-top:none;
+}
+
+.divider{
+margin: 10px auto 10px auto;
+width:400px;
+}
+.container{
+margin-top: 4rem;
+}
+ .card, .card-panel{
+     margin: 0.5rem 0 3rem 0;
+ }
+ 
+ .btn, .btn-large{
+ background-color:#C37F00;
+ }
+ h1{
+     color: #007F70;
+ }
+ 
+ footer{
+     color: #007F70;}
+	 footer>a{
+	 color:#c35300;
+	 }
+  </style>
+</head>
+
+<body >
+<div class="container center-align ">
+<div class="row ">
+<div class="col s10 offset-s1 ">
+<header class="card-panel">
+<h1  >Random Design Quotes</h1>
+</header>
+
+<main id="quoteBox" class="card  teal darken-2 ">
+<div  class="card-content white-text">
+ <div >
+<p id="quoteBoxContent" class="flow-text">Practicality is the serial killer of dreams.</p>
+<div class="divider"></div>
+<span id="quoteBoxTitle" class="card-title">Rasha Hamdan</span>
+</div>
+</div>
+ <div class="card-action">
+<button class="waves-effect waves-light btn-large" id="quoteButton">New Quote</button>
+<button class="waves-effect waves-light btn-large" id="twitterButton">Tweet</button>
+</div>
+</main>
+<footer class="card-panel">Powered by <a href="http://quotesondesign.com/api-v4-0/">Quotes on Design</a></footer>
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script>
+  $( document ).ready(function() {
+    $('#quoteBox').animateCss('lightSpeedIn');
+});
+ 
+  $.fn.extend({
+    animateCss: function (animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+            $(this).removeClass('animated ' + animationName);
+			$('#quoteButton').removeClass('disabled');
+        });
+    }
+});
+
+  $('#quoteButton').on('click', function(e) {
+  
+  $('#quoteButton').addClass('disabled');
+	// $('#quoteBox').animateCss('fadeOut');
+	e.preventDefault();
+    $.ajax( {
+      url: 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=',
+      success: function(data) {
+        var post = data.shift(); // The data is an array of posts. Grab the first one.
+        $('#quoteBoxTitle').text(post.title);
+        $('#quoteBoxContent').html(post.content);
+		$('#quoteBox').animateCss('lightSpeedIn');
+
+      },
+      cache: false
+    });
+  });
+  
+
+
+  </script>
+
+</div>
+</div>
+</div>
+</body>
+</html>
