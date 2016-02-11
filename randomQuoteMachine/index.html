@@ -11,7 +11,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
   <!-- Compiled and minified JavaScript -->
 
   <!--[if lt IE 9]>
@@ -57,13 +59,12 @@
   background-color: #C37F00;
 }
 
-h1 {
+h1,footer {
+font-family: 'Rancho', cursive;
   color: #007F70;
 }
 
-footer {
-  color: #007F70;
-}
+
 
 footer>a {
   color: #c35300;
@@ -76,6 +77,17 @@ footer>a {
 #quoteBoxContent:after {
     content: '"';
 }
+
+#twitterButton{
+margin-left: 2em;
+}
+#quoteButton{
+margin-right: 2em;
+}
+
+.fa{
+    margin-right: 0.4em;
+	}
   </style>
 </head>
 
@@ -99,7 +111,7 @@ footer>a {
             <button class="waves-effect waves-light btn-large" id="quoteButton">New Quote</button>
             <a target="_blank" class="waves-effect waves-light btn-large" id="twitterButton" href="https://twitter.com/intent/tweet?
 				text=Practicality is the serial killer of dreams-Rasha Hamdan&
-				hashtags=randomDesignQuotes">Tweet</a>
+				hashtags=randomDesignQuotes"><i class="fa fa-twitter"></i>Tweet</a>
           </div>
         </main>
         <footer class="card-panel">Powered by <a target="_blank" href="http://quotesondesign.com/api-v4-0/">Quotes on Design</a></footer>
