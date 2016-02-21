@@ -1,0 +1,177 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Show the Local Weather</title>
+  <meta name="description" content="Local Weather Viewer for freeCodeCamp">
+  <meta name="author" content="Golfo Vasiliou">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<link rel="stylesheet" media="screen" href="css/weather-icons.min.css" type="text/css"/>
+<link rel="stylesheet" media="screen" href="css/weather-icons-wind.min.css" type="text/css"/>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+  #loc{
+      margin-top: 1em;
+  }
+  h1{
+      font-size: 3rem;
+  }
+  #weatherIcon{
+  font-size:3em;
+  margin-top: -0.15em;
+      
+  }
+  #weatherContainer{
+  
+  font-size:2em;
+  }
+  
+  hr{
+  margin-top:1em;
+  margin-bottom:1em;
+  width:50%;
+  }
+  
+  #weatherContainer{
+  height:600px;
+  }
+  #weatherIcon{
+  
+  height:135px;
+  }
+  #desc{
+  height:45px;
+  }
+  #temp{
+   height:45px;
+  }
+  #wind{
+   height:45px;
+  }
+  </style>
+</head>
+
+<body onload="getLocation()">
+<div class="container center-align">
+
+ <div class="row">
+   <div id="weatherContainer" class="col m6 s10 l4 offset-m3 offset-s1 offset-l4">
+  
+
+ <div class="row">
+   <div class="s12">
+    <h1>Local Weather</h1>
+	
+   </div>
+
+   <a id="celsiusButton"class="btn-flat disabled" href="javascript:toCelsius();"><i class="wi wi-celsius"></i></a>
+   
+   
+   <a id="fahrButton" class="btn-flat disabled" href="javascript:toFahrenheit();" ><i  class="wi wi-fahrenheit"></i></a>
+  
+   </div>
+   <hr>
+   <ul>
+<li id="weatherIcon"></li>
+<li id="desc"></li>
+<li id="temp"></li>
+<li id="wind"></li>
+<hr>
+<li id="loc"></li>
+
+</ul>
+
+</div>
+</div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+	<script>
+	String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+
+var tempUnit="celsius";	
+
+function toCelsius(){
+console.log("work");
+if(tempUnit!="celsius"){
+$('#fahrButton').removeClass('disabled');
+var temp=$("#temp").contents().get(0).nodeValue;
+tempUnit="celsius";	
+$('#temp').html(((temp-32)*5/9).toFixed(2)+'<i  class="wi wi-'+tempUnit+'"></i>');
+$('#celsiusButton').addClass('disabled');
+}
+}
+
+function toFahrenheit(){
+if(tempUnit!="fahrenheit"){
+$('#celsiusButton').removeClass('disabled');
+var temp=$("#temp").contents().get(0).nodeValue;
+tempUnit="fahrenheit";	
+$('#temp').html((temp*9/5+32).toFixed(2)+'<i  class="wi wi-'+tempUnit+'"></i>');
+$('#fahrButton').addClass('disabled');
+}
+
+}
+var icons={
+i1d:"<i class='wi wi-day-sunny'></i>",
+i01n:"<i class='wi wi-night-clear'></i>",
+i02d:"<i class='wi wi-day-cloudy'></i>",
+i02n:"<i class='wi wi-night-alt-cloudy'></i>",
+i03d:"<i class='wi wi-cloudy'></i>",
+i03n:"<i class='wi wi-cloudy'></i>",
+i04d:"<i class='wi wi-cloudy'></i>",
+i04n:"<i class='wi wi-cloudy'></i>",
+i09d:"<i class='wi wi-rain'></i>",
+i09n:"<i class='wi wi-rain'></i>",
+i10d:"<i class='wi wi-day-rain-mix'></i>",
+i10n:"<i class='wi wi-night-rain-mix'></i>",
+i11d:"<i class='wi wi-thunderstorm'></i>",
+i11n:"<i class='wi wi-thunderstorm'></i>",
+i13d:"<i class='wi wi-snow'></i>",
+i13n:"<i class='wi wi-snow'></i>",
+i50d:"<i class='wi wi-day-haze'></i>",
+i50n:"<i class='wi wi-night-fog'></i>"
+};
+	
+ 
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.log = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    var latitude=position.coords.latitude ; 
+    var longitude=position.coords.longitude; 
+	console.log("http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&units=metric&appid=cceedf750200a471020c24c908e937fc");
+	 $.getJSON( "http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&units=metric&appid=cceedf750200a471020c24c908e937fc", function( data ) {
+	 
+
+  console.log(data);
+ console.log();
+ $("#weatherIcon").html(icons["i"+data['weather'][0]['icon']]);
+  $("#desc").html(data['weather'][0]['description'].capitalize());
+  $("#loc").html(data['name']);
+  $("#temp").html(data['main']['temp']+'<i  class="wi wi-'+tempUnit+'"></i>');
+  $("#wind").html(data['wind']['speed']+' m/s'+'<i style="margin-left: 5px;" class="wi wi-wind towards-'+Math.floor(parseInt(data['wind']['deg']))+'-deg"></i>');
+
+
+  });
+}
+
+
+	</script>
+</body>
+</html>
