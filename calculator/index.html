@@ -51,7 +51,7 @@ font-family: 'PTMonoRegular';
    </div>
    </div>
   <div class="row">
-   <div class="col m6 s8 l4 offset-m3 offset-s2 offset-l4">
+   <div class="col m6 s10 l4 offset-m3 offset-s1 offset-l4">
   
 <div class="card-panel">
 
@@ -113,21 +113,33 @@ font-family: 'PTMonoRegular';
 	});
 	
 	$("#comma").on("click",function(e){
-	if($("#userInput").val().indexOf(".")==-1)
+	if($("#userInput").val().indexOf(".")==-1&&$("#userInput").val())
 	$("#userInput").val($("#userInput").val()+$(this).text());
 	});
 	
 
 	$(".num").on("click",function(e){
+    
 	if($('#expression').text().indexOf('=')>-1){
 	$("#userInput").val('');
 	$('#expression').html('');
 	}
+	//console.log(e.target.id);
+	if(e.target.id=="percent"){
+	if($("#userInput").val())
+		$("#userInput").val($("#userInput").val()+$(this).text());
+	}else{
 	$("#userInput").val($("#userInput").val()+$(this).text());
+	}
 	});
 	
 	$(".act").on("click",function(e){
-	var text=$("#userInput").val().replace(/\.(?!\[0-9])/gi,'.0')//Add a zero after a comma if it isn't followed by a number
+	
+	if($("#userInput").val()){
+	var text=$("#userInput").val();
+	if(text.charAt(text.length - 1)=='.')
+		text=text+'0';
+
 		if($('#expression').text().indexOf('=')>-1){
 	
 	$('#expression').html(text+$(this).text());
@@ -136,6 +148,8 @@ font-family: 'PTMonoRegular';
 	
 	}
 	$("#userInput").val('');
+	
+	}
 	});
 	
 	$("#ce").on("click",function(e){
@@ -150,7 +164,9 @@ font-family: 'PTMonoRegular';
 	});
 	
 		$("#equal").on("click",function(e){
-		var text=$("#userInput").val().replace(/\.(?!\[0-9])/gi,'.0')//Add a zero after a comma if it isn't followed by a number
+		var text=$("#userInput").val();
+	if(text.charAt(text.length - 1)=='.')
+		text=text+'0';//Add a zero after a comma if it isn't followed by a number
 	var exp='';
 	if(text!=''){
 	$("#expression").append(text+$(this).text());
@@ -173,7 +189,7 @@ font-family: 'PTMonoRegular';
 	console.log(exp);
 	
 	var sum=eval(exp);
-	$("#userInput").val(sum);
+	$("#userInput").val(sum.toString());
 	
 	});
 	
