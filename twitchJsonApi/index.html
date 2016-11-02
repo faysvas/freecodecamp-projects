@@ -4,50 +4,144 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Random Quote Machine</title>
-  <meta name="description" content="A random quote machine">
+  <title>Use the Twitchtv JSON API</title>
+  <meta name="description" content="Use the Twitchtv JSON API">
   <meta name="author" content="Golfo Vasiliou">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
   <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
   <!-- Compiled and minified JavaScript -->
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style>
+.right-part{
+float:right;
+max-width: 50%;
+}
+.left-part{
+float:left;
+max-width: 50%;
+}
+.collection-item.avatar{
+    height: 130px;}
+
 
   </style>
 </head>
-
 <body>
-  <div class="container center-align ">
-    <div class="row ">
-      <div class="col s10 offset-s1 ">
-        <header class="card-panel">
-          <h1>Random Design Quotes</h1>
-        </header>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 l8 offset-l2 m10 offset-m1 ">
+                <header class="card-panel">
+                    <h1>Twitchtv Viewer</h1>
+                </header>
 
-        <main id="quoteBox" class="card  teal darken-2 ">
-   
-        </main>
-        <footer class="card-panel">Powered by <a target="_blank" href="http://quotesondesign.com/api-v4-0/">Quotes on Design</a></footer>
+                <main ><a id ="filter-none" class="waves-effect waves-light btn all">All</a><a id ="filter-online" class="waves-effect waves-light btn online_s">Online</a><a id ="filter-offline"  class="waves-effect waves-light btn offline_s">Offline</a>
+				
+                    <div id="streamers" >
+					<input class="search" placeholder="Search" />
+                        <ul class="collection list">
+ 
+	  
+	 
 
+                        </ul>
+                    </div>
+                </main>
+                <footer class="card-panel">Powered by <a target="_blank" href="https://www.twitch.tv/">Twitch.tv</a>
+				
+  
+ 
+				</footer>
+  
+            </div>
+        </div>
+    </div>
 
+</body>
+   <script src="http://player.twitch.tv/js/embed/v1.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
   <script>
+ var TWITCHTV=(function(){
+var streamersArray=["freecodecamp", "storbeck", "terakilobyte", "habathcx","RobotCaleb","thomasballinger","noobs2ninjas","beohoff","brunofin","comster404","dotastarladder_en","faceittv"];
+
+
+
+
+var items = "";
+
+	return{
+	
+	 getTwitchData:function(){
+	  
+	 for (x in streamersArray){
+
+	 $.getJSON('https://api.twitch.tv/kraken/channels/'+streamersArray[x], function(data) {
+	 var img_src=data.logo||"";
+			 
+
+var availability = (data["stream"] )? "online" : "offline";
+var icon = (data["stream"] )? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>';
+	
+	  $('#streamers>ul').append( '<li class="collection-item avatar"><div class="left-part "><img src="'+img_src+'" alt="" class="circle"><span class="title"><a  href="'+data.url+'">'+data.display_name+'</a></span><p>'+data.status+'</p></div><div class="right-part '+availability+'" id="'+data.display_name+'">'+icon+'</div></li>' );
+	 // var player = new Twitch.Player(data.display_name, {width: 150,height: 100,channel: data.display_name,muted:true});
+ 
+	 //data.logo
+	 //data.url
+	// data.display_name
+ // console.log(data);
+  //data.status
+  var options = {
+  valueNames: [ 'online','offline','title' ]
+};
+
+var streamerList = new List('streamers', options);
+
+$('#filter-online').click(function() {
+  streamerList.filter(function(item) {
+    if (item.values().online) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return false;
+});
+
+$('#filter-offline').click(function() {
+  streamerList.filter(function(item) {
+    if (item.values().offline) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return false;
+});
+$('#filter-none').click(function() {
+  streamerList.filter();
+  return false;
+});
+
+});
+
+}
+  
+
+
+  }
+	};
+  })();
+TWITCHTV.getTwitchData();
 
 
 
   </script>
-
- </div>
-    </div>
-  </div>
-</body>
-
 </html>

@@ -1,0 +1,239 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>TicTacToe Game</title>
+  <meta name="description" content="TicTacToe Game">
+  <meta name="author" content="Golfo Vasiliou">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/magic.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.0/css/hover-min.css">
+
+  <!-- Compiled and minified JavaScript -->
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+    .difficulty{
+      
+           width: 150px;
+      height: 150px;
+      
+    }
+    .active{
+      background: url(assets/bat.svg);
+          background-repeat: no-repeat;
+    background-position: center;
+    height: 100px;
+    }
+    .fancy {
+    line-height: 0.5;
+    text-align: center;
+  }
+  .fancy span {
+    display: inline-block;
+    position: relative;  
+    font-size:30px;
+  }
+  .fancy span:before,
+  .fancy span:after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #7c6e76;
+    border-top: 1px solid #7c6e76;
+    top: 0;
+    width: 100px;
+  }
+  .fancy span:before {
+    right: 100%;
+    margin-right: 15px;
+        font-size: 28px;
+  }
+  .fancy span:after {
+    left: 100%;
+    margin-left: 15px;
+  }
+  main{
+     border-radius: 13px 13px 13px 13px;
+-moz-border-radius: 13px 13px 13px 13px;
+-webkit-border-radius: 13px 13px 13px 13px;
+border: 5px solid #000000;
+    background-color: rgba(51, 50, 50, 0.32);
+       padding: 15px 0 15px 0;
+    height: 540px;
+  }
+  #tokenSelection{
+   margin-top: 30px;
+  }
+  #gameEnd{
+    margin-top: 30px;
+  }
+    #tokenSelection>button{
+   
+      margin: 30px 30px 30px 30px;
+    }
+    button {
+      background-color: transparent;
+      background-repeat:no-repeat;
+      border: none;
+      cursor:pointer;
+      overflow: hidden;
+      outline:none;
+      font-size:30px;
+  }
+  button:focus{
+    background-color:transparent;
+  }
+  .valign-wrapper{
+    height:100px;
+  }
+  #score{
+      color: #a19f9f;
+      text-shadow: 2px 2px black;
+       height: 300px;
+      width: 250;
+      background: url(assets/tomb.svg);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      padding-top: 80px;
+      font-size: 30px;
+      margin-top: 240px;
+  }
+    body{
+
+        background: #130912;
+          font-family: 'ghoulish';
+          color:#7c6e76;
+background-color: #130912;
+background-image: url("https://www.transparenttextures.com/patterns/shley-tree-2.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    }
+    @font-face {
+      font-family: 'ghoulish'; /*a name to be used later*/
+      src: url('assets/Ghoulish.ttf'); /*URL to font*/
+  }
+   @font-face {
+      font-family: 'Creature_Feature'; /*a name to be used later*/
+      src: url('Creature_Feature.ttf'); /*URL to font*/
+  }
+  h1{font-family: 'ghoulish';
+      margin: 2.1rem 0 0rem 0;
+  font-size:90px;
+      
+  }
+
+  .headerLine{
+    background-color:black;
+   display:inline-block;
+   height:25px;
+  }
+  #tokenSelection>button:active {
+     background-color: transparent;
+  }
+  #tokenSelection>button:focus {
+     background-color: transparent;
+
+  
+  }
+  button>img{
+
+    -webkit-animation-iteration-count: 1;
+  
+  }
+  .magictime {
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  }
+  .gameText{
+        font-size: 30px;
+  }
+  #loseOrWin{
+    font-size:80px;
+  }
+  .cat{
+          background: url(assets/cat.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50px;
+  }
+  .canvasContainer{
+     -vendor-animation-iteration-count: 1;
+  }
+  .row{
+    margin-bottom: 0;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div class="container center-align " id="ticTacToe">
+    <div class="row">
+
+      <div class="col s6 offset-s3" id="title">
+        <h1 class="center-align">Tic Tac Toe</h1>
+        <div class="cat"></div>
+        <span class="headerLine left"></span>
+        <p class="subtitle fancy center-align"><span>SPOOKY EDITION</span></p>
+        <span class="headerLine right"></span>
+      </div>
+
+
+    </div>
+    <div class="row ">
+      <div class="col s3">
+        <div id="score">
+          <div>PC: <span id="pcWins">0</span></div>
+          <div>Player: <span id="playerWins">0</span></div>
+
+          <div>Draws: <span id="draws">0</span></div>
+          <div>Games: <span id="games">0</span></div>
+
+        </div>
+      </div>
+      <div class="col s6 ">
+
+
+        <main>
+          <div id="tokenSelection">
+            
+            <div class="gameText">Choose your image</div>
+            <button type="submit" class="hvr-bob"><img  src="assets/bones.svg" height="100" width="100" id="tokenX"></button>
+            <button type="submit" class="hvr-bob"><img src="assets/skull.svg" height="100" width="100" id="tokenO"></button>
+<br/>
+  <div class="gameText">Choose difficulty</div>
+            <button class="difficulty active" id="easy">Easy</button>
+            <button class="difficulty" type="submit" id="hard">Hard</button>
+          </div>
+<div id="gameEnd" style="display:none;">
+  <div class="gameText" id="loseOrWin"></div>
+  <div><button id="playAgain" class="hvr-bob active">Play again?</button></div>
+
+</div>
+          <div class="center-align" id="canvasContainer"><canvas class="center-align" style="display:none;" id="ticTacToeCanvas" width="500" height="500"></canvas>
+          </div>
+
+        </main>
+      </div>
+      <div class="col s3"></div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+  <script src="js/tictactoe.js">
+  </script>
+
+</body>
+
+</html>

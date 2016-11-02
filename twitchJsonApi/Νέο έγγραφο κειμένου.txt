@@ -1,0 +1,1 @@
+"<li class='collection-item avatar'><a target='_blank' href="+data.url+"><img alt='' class='square' src="+img_src+"><div class='title'>"+data.display_name+"</div></a><p><div id='"+data.display_name+"' class='center-align'></div>"+data.status+"</p> </li>" 
