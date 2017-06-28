@@ -1,0 +1,199 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Javascript Calculator</title>
+  <meta name="description" content="Javascript Calculator for freeCodeCamp">
+  <meta name="author" content="Golfo Vasiliou">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/pt-mono" type="text/css"/>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+  .btn{
+  width:100%;
+ padding: 1px 6px;
+ margin-bottom: 0.5rem;}
+ .container{}
+ 
+ #userInput{
+font-family: 'PTMonoRegular'; 
+   font-weight: normal; 
+   font-style: normal;
+    font-size: 3em;
+	color:black;
+ }
+ #expression{
+word-wrap: break-word;
+font-family: 'PTMonoRegular'; 
+   font-weight: normal; 
+   font-style: normal;
+   height:4em;
+ 
+ }
+ #buttons{
+ margin-top: 2rem;
+ }
+  </style>
+</head>
+
+<body>
+ <div class="container center-align">
+ <div class="row">
+   <div class="s12">
+    <h1>Javascript Calculator</h1>
+   </div>
+   </div>
+  <div class="row">
+   <div class="col m6 s10 l4 offset-m3 offset-s1 offset-l4">
+  
+<div class="card-panel">
+
+<div class="row ">
+
+
+<div id="expression">
+
+</div>
+  <div class="input-field" >
+          <input disabled id="userInput" type="text" class="right-align">
+         
+        </div>
+		<div id="buttons">
+ <div class="col s3">
+<button class="waves-effect waves-light btn" id="ac">AC</button>
+<button class="waves-effect waves-light btn num">7</button>
+<button class="waves-effect waves-light btn num">4</button>
+<button class="waves-effect waves-light btn num">1</button>
+
+<button class="waves-effect waves-light btn num">0</button>
+</div>
+ <div class="col s3">
+<button class="waves-effect waves-light btn" id="ce">CE</button>
+<button class="waves-effect waves-light btn num">8</button>
+<button class="waves-effect waves-light btn num">5</button>
+<button class="waves-effect waves-light btn num">2</button>
+<button class="waves-effect waves-light btn" id="comma">.</button>
+</div>
+ <div class="col s3">
+<button class="waves-effect waves-light btn" id="del">DEL</button>
+<button class="waves-effect waves-light btn num">9</button>
+<button class="waves-effect waves-light btn num">6</button>
+<button class="waves-effect waves-light btn num">3</button>
+<button class="waves-effect waves-light btn"id="equal">=</button>
+</div>
+ <div class="col s3">
+ <button class="waves-effect waves-light btn num"id="percent">%</button>
+<button class="waves-effect waves-light btn act"id="div">/</button>
+<button class="waves-effect waves-light btn act"id="mul">x</button>
+<button class="waves-effect waves-light btn act"id="minus">-</button>
+<button class="waves-effect waves-light btn act"id="plus">+</button>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+	<script>
+	$("#del").on("click",function(e){
+	$('#userInput').val(function (_,txt) {
+    return txt.slice(0, -1);
+});
+	});
+	
+	$("#comma").on("click",function(e){
+	if($("#userInput").val().indexOf(".")==-1&&$("#userInput").val())
+	$("#userInput").val($("#userInput").val()+$(this).text());
+	});
+	
+
+	$(".num").on("click",function(e){
+    
+	if($('#expression').text().indexOf('=')>-1){
+	$("#userInput").val('');
+	$('#expression').html('');
+	}
+	//console.log(e.target.id);
+	if(e.target.id=="percent"){
+	if($("#userInput").val())
+		$("#userInput").val($("#userInput").val()+$(this).text());
+	}else{
+	$("#userInput").val($("#userInput").val()+$(this).text());
+	}
+	});
+	
+	$(".act").on("click",function(e){
+	
+	if($("#userInput").val()){
+	var text=$("#userInput").val();
+	if(text.charAt(text.length - 1)=='.')
+		text=text+'0';
+
+		if($('#expression').text().indexOf('=')>-1){
+	
+	$('#expression').html(text+$(this).text());
+	}else{
+	$("#expression").append(text+$(this).text());
+	
+	}
+	$("#userInput").val('');
+	
+	}
+	});
+	
+	$("#ce").on("click",function(e){
+	$("#userInput").val('');
+	$("#expression").text('');
+	});
+	
+	$("#ac").on("click",function(e){
+	$("#userInput").val('');
+
+	
+	});
+	
+		$("#equal").on("click",function(e){
+		var text=$("#userInput").val();
+	if(text.charAt(text.length - 1)=='.')
+		text=text+'0';//Add a zero after a comma if it isn't followed by a number
+	var exp='';
+	if(text!=''){
+	$("#expression").append(text+$(this).text());
+	}else{//if text is empty, it means the user pressed = after an action. Delete last action and add = sign
+
+	$("#expression").text($("#expression").text().slice(0, -1));
+	$("#expression").append(text+$(this).text());
+
+	}
+	
+	var last=$("#expression").text()[$("#expression").text().length -1];
+	
+
+	
+	exp=$("#expression").text().slice(0, -1);
+	
+	
+	exp=exp.replace(/%/gi,"/100");//replace percent symbol with /100
+	exp=exp.replace(/x/gi,"*");//replace x symbol with *
+	console.log(exp);
+	
+	var sum=eval(exp);
+	$("#userInput").val(sum.toString());
+	
+	});
+	
+	
+	</script>
+</body>
+</html>

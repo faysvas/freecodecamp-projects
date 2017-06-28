@@ -1,0 +1,250 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Pomodoro Clock</title>
+  <meta name="description" content="A Pomodoro Clock">
+  <meta name="author" content="Golfo Vasiliou">
+
+
+  <!-- Compiled and minified CSS -->
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+
+  <!-- Compiled and minified JavaScript -->
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+
+body{
+
+font-family: 'Bangers', cursive;
+background-image: url("Coca-Cola-Art_Andy-Warhol_Green_Coca-Cola_Bottles.jpg");
+
+background-size: 100%;
+    -webkit-text-stroke: 1px black;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.card-panel{
+padding:0;
+}
+.card-panel,.card{
+margin:0 0 0 0;
+background-color:#FFF81D;
+
+}
+.row{
+margin-bottom:0;
+   
+}
+#pomodoroBox{
+    padding: 5% 0;
+}
+#timer{
+font-size: 70px;
+    margin-bottom: -330px;
+    margin-left: -10px;
+	z-index:2;
+	position:relative;
+	
+}
+.timerWrapper{
+    padding-top: 180px;
+}
+
+.setTimer{
+font-size:30px;
+margin-bottom: 20px;
+}
+
+.btn{
+margin-left: 10px;
+margin-right: 10px;
+    background-color: #2936B0;
+}
+
+#soupCan {
+-webkit-clip-path: inset(100% 0 0 0);
+clip-path: inset(100% 0 0 0);
+height:471px;
+}
+
+.col{
+border-left: 20px red solid;
+    border-right: 20px red solid;
+ background-color: white;
+
+background-image: url("bo-play.png");
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="container center-align ">
+    <div class="row ">
+      <div class="col s10 offset-s1 ">
+        <header class="card-panel">
+          <h1>Pomodoro Clock</h1>
+        </header>
+
+        <main id="pomodoroBox" class="card">
+
+  <div class="setTimer">Session
+   <button class="waves-effect waves-light btn plmin" onclick="POMODORO.sessionMinusMinute();"><i class="fa fa-minus"></i></button>
+   <span id="sessionMinutes">25</span>
+   <button class="waves-effect waves-light btn plmin" onclick="POMODORO.sessionPlusMinute();"><i class="fa fa-plus"></i></button>
+  Break
+   
+
+   <button class="waves-effect waves-light btn plmin" onclick="POMODORO.breakMinusMinute();"><i class="fa fa-minus"></i></button>
+     <span id="breakMinutes">5</span> 
+   <button class="waves-effect waves-light btn plmin" onclick="POMODORO.breakPlusMinute();"><i class="fa fa-plus"></i></button>
+   </div>
+   		<div >
+   <button class="waves-effect waves-light btn" onclick="POMODORO.startTimer();">Start</button><button class="waves-effect waves-light btn" onclick="POMODORO.reset();">Reset</button>
+   </div>
+   <div class="timerWrapper">
+    <div id="timer"><p id="timerLabel"></p><span id="minutes">25</span>:<span id="seconds">00</span></div>
+	<div  >
+   <img id="soupCan"src="soup_can.png"></img>
+</div>
+</div>
+        </main>
+       
+
+
+  <script src="jquery-1.11.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script>
+  
+
+  
+  var POMODORO=(function(){
+ var minutes=parseInt($("#minutes").html());
+ var seconds=0;
+ var step=0;
+ var percentage=100;
+  var secVar=undefined;
+  var active="Session";
+  var audio = new Audio('beep-01a.mp3');
+  var secTimer=function(){
+
+if(active=="Session"){
+step=100/(parseInt($("#sessionMinutes").html())*60);	
+percentage-=step;
+}else{
+step=100/(parseInt($("#breakMinutes").html())*60);	
+percentage+=step;
+}
+
+
+ $("#soupCan").css("clip-path", "inset("+percentage+"% 0 0 0)");
+$("#soupCan").css("-webkit-clip-path", "inset("+percentage+"% 0 0 0)");   
+  
+  
+	if (seconds===0){
+	if(minutes==0){
+	
+audio.play();
+	active=(active == 'Session' ? 'Break' : 'Session');
+	if(active=="timer"){
+	minutes=parseInt($("#sessionMinutes").html());
+	seconds=0
+	}else{
+	minutes=parseInt($("#breakMinutes").html());
+	seconds=0
+	}
+	$("#timerLabel").html(active);
+	addZero("minutes",minutes);
+	addZero("seconds",seconds);
+	}else{
+	minutes-=1;
+	addZero("minutes",minutes);
+	seconds=59;
+	}
+	}else{
+	seconds-=1;
+	}
+	
+    addZero("seconds",seconds);
+
+	
+	};
+	
+	var addZero=function(id,val){
+	$("#"+id).html(('0'+(val)).slice(-2));
+	}
+	return{
+	 startTimer:function(){
+	 
+
+
+
+	 $(".plmin").prop('disabled', true);
+	 $(".plmin").addClass( "disabled" );
+ addZero("minutes",minutes);
+	addZero("seconds",seconds);
+secVar=setInterval(secTimer, 1000);//= setInterval(this.secTimer, 1000);
+  
+  },
+  reset:function(){
+  clearInterval(secVar)
+  $(".plmin").prop('disabled', false);
+  $(".plmin").removeClass( "disabled" );
+  minutes=parseInt($("#sessionMinutes").html());
+  seconds=0;
+  addZero("minutes",minutes);
+  addZero("seconds",0);
+
+  
+  
+  }, 
+  sessionPlusMinute:function(){
+  
+  minutes++;
+  $("#sessionMinutes").html(minutes);
+  $('#minutes').html(minutes);
+  
+
+  },
+  sessionMinusMinute:function(){
+  if(minutes>1){
+  minutes--;
+  
+ $("#sessionMinutes").html(minutes);
+ $('#minutes').html(minutes);
+  }
+  },
+  breakPlusMinute:function(){
+  
+  $("#breakMinutes").html(parseInt($("#breakMinutes").html())+1);
+
+  },
+  breakMinusMinute:function(){
+  if(parseInt($("#breakMinutes").html())>1){
+  
+  
+ $("#breakMinutes").html(parseInt($("#breakMinutes").html())-1);
+  }
+  }
+	};
+  })();
+
+  </script>
+
+ </div>
+    </div>
+  </div>
+</body>
+
+</html>

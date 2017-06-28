@@ -11,85 +11,116 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
   <!-- Compiled and minified JavaScript -->
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style>
-  body{
-  overflow-x:hidden;  
-      background-color: #c35300;
+ body {
+  overflow-x: hidden;
+  background-color: #c35300;
+  background-image: url("https://raw.githubusercontent.com/faysvas/freecodecamp/master/randomQuoteMachine/robots.png");
+}
 
-    background-image: url("robots.png");
-  }
-  
-  #quoteBoxContent{
-   font-style: italic;
-      font-size: 2.25em;
-	  font-weight:400;
-  }
-  #quoteBoxTitle{
-      font-weight: 400;
-  }
+#quoteBoxContent {
+  font-style: italic;
+  font-size: 2.25em;
+  font-weight: 400;
+}
+
+#quoteBoxTitle {
+  font-weight: 400;
+}
+
 .card .card-action {
-border-top:none;
+  border-top: none;
 }
 
-.divider{
-margin: 10px auto 10px auto;
-width:400px;
+.divider {
+  margin: 10px auto 10px auto;
+  width: 400px;
 }
-.container{
-margin-top: 4rem;
+
+.container {
+  margin-top: 4rem;
 }
- .card, .card-panel{
-     margin: 0.5rem 0 3rem 0;
- }
- 
- .btn, .btn-large{
- background-color:#C37F00;
- }
- h1{
-     color: #007F70;
- }
- 
- footer{
-     color: #007F70;}
-	 footer>a{
-	 color:#c35300;
-	 }
+
+.card,
+.card-panel {
+  margin: 0.5rem 0 3rem 0;
+}
+
+.btn,
+.btn-large {
+  background-color: #C37F00;
+}
+
+h1,footer {
+font-family: 'Rancho', cursive;
+  color: #007F70;
+}
+
+
+
+footer>a {
+  color: #c35300;
+}
+
+#quoteBoxContent:before {
+    content: '"';
+}
+
+#quoteBoxContent:after {
+    content: '"';
+}
+
+#twitterButton{
+margin-left: 2em;
+}
+#quoteButton{
+margin-right: 2em;
+}
+
+.fa{
+    margin-right: 0.4em;
+	}
   </style>
 </head>
 
-<body >
-<div class="container center-align ">
-<div class="row ">
-<div class="col s10 offset-s1 ">
-<header class="card-panel">
-<h1  >Random Design Quotes</h1>
-</header>
+<body>
+  <div class="container center-align ">
+    <div class="row ">
+      <div class="col s10 offset-s1 ">
+        <header class="card-panel">
+          <h1>Random Design Quotes</h1>
+        </header>
 
-<main id="quoteBox" class="card  teal darken-2 ">
-<div  class="card-content white-text">
- <div >
-<p id="quoteBoxContent" class="flow-text">Practicality is the serial killer of dreams.</p>
-<div class="divider"></div>
-<span id="quoteBoxTitle" class="card-title">Rasha Hamdan</span>
-</div>
-</div>
- <div class="card-action">
-<button class="waves-effect waves-light btn-large" id="quoteButton">New Quote</button>
-<button class="waves-effect waves-light btn-large" id="twitterButton">Tweet</button>
-</div>
-</main>
-<footer class="card-panel">Powered by <a href="http://quotesondesign.com/api-v4-0/">Quotes on Design</a></footer>
+        <main id="quoteBox" class="card  teal darken-2 ">
+          <div class="card-content white-text">
+            <div>
+              <p id="quoteBoxContent" class="flow-text">Practicality is the serial killer of dreams.</p>
+              <div class="divider"></div>
+              <span id="quoteBoxTitle" class="card-title">Rasha Hamdan</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <button class="waves-effect waves-light btn-large" id="quoteButton">New Quote</button>
+            <a target="_blank" class="waves-effect waves-light btn-large" id="twitterButton" href="https://twitter.com/intent/tweet?
+				text=Practicality is the serial killer of dreams-Rasha Hamdan&
+				hashtags=randomDesignQuotes"><i class="fa fa-twitter"></i>Tweet</a>
+          </div>
+        </main>
+        <footer class="card-panel">Powered by <a target="_blank" href="http://quotesondesign.com/api-v4-0/">Quotes on Design</a></footer>
+
+
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   <script>
-  $( document ).ready(function() {
-    $('#quoteBox').animateCss('lightSpeedIn');
+  $(document).ready(function() {
+  $('#quoteBox').animateCss('lightSpeedIn');
 });
  
   $.fn.extend({
@@ -103,7 +134,7 @@ margin-top: 4rem;
 });
 
   $('#quoteButton').on('click', function(e) {
-  
+
   $('#quoteButton').addClass('disabled');
 	// $('#quoteBox').animateCss('fadeOut');
 	e.preventDefault();
@@ -112,20 +143,21 @@ margin-top: 4rem;
       success: function(data) {
         var post = data.shift(); // The data is an array of posts. Grab the first one.
         $('#quoteBoxTitle').text(post.title);
-        $('#quoteBoxContent').html(post.content);
+        $('#quoteBoxContent').html($(post.content).text().trim());
 		$('#quoteBox').animateCss('lightSpeedIn');
-
+  $("#twitterButton").attr("href", "https://twitter.com/intent/tweet?text="+$(post.content).text().trim()+"-"+$(post.title).text()+"&hashtags=randomDesignQuotes")
       },
       cache: false
     });
   });
-  
+
 
 
   </script>
 
-</div>
-</div>
-</div>
+ </div>
+    </div>
+  </div>
 </body>
+
 </html>

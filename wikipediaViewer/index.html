@@ -1,0 +1,130 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Wikipedia Viewer</title>
+  <meta name="description" content="A Wikipedia Viewer">
+  <meta name="author" content="Golfo Vasiliou">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+  <!-- Compiled and minified JavaScript -->
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+li>img{
+height:50px;
+width:50px;
+}
+
+.collection .collection-item.avatar .square{
+position: absolute;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.collection .collection-item {
+margin: 10px;
+}
+
+.collection .collection-item.avatar {
+        min-height: 180px;
+    padding-left: 140px;
+   
+}
+
+.collection .collection-item.avatar p {
+    font-size: 20px;
+    margin-top: 15px;
+   
+}
+
+.collection .collection-item.avatar .title {
+    text-align: center;
+    font-size: 25px;
+    margin-left: -125px;
+    margin-bottom: 10px;
+}
+#searchTerm{
+width: 60%;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container center-align ">
+    <div class="row ">
+      <div class="col s10 offset-s1 ">
+        <header class="card-panel">
+          <h1>Wikipedia Viewer</h1>
+        </header>
+</div>
+</div>
+<div class="row ">
+      <div class="col s10 offset-s1  ">
+        <main class="card  teal darken-2 ">
+   <a class="waves-effect waves-light btn" href="http://en.wikipedia.org/wiki/Special:Random">Get a random article!</a>
+   <div class="input-field">
+          <i class="fa fa-search"></i>
+          <input placeholder="Type a term to search wikipedia" id="searchTerm" type="text" class="validate">
+          </div>
+		  <div id="articles" class="left-align">
+		  <ul class="collection">
+		  </ul>
+		  </div>
+        
+        </main>
+        <footer class="card-panel"><a href="//www.mediawiki.org/"><img src="https://www.mediawiki.org/w/resources/assets/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>	</footer>
+
+
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script>
+
+$('#searchTerm').keyup(function() {
+$.ajax({
+  dataType: "jsonp",
+  url:   "https://en.wikipedia.org/w/api.php?&action=query&format=json&generator=search&gsrsearch="+$('#searchTerm').val()+"&gsrlimit=10&prop=pageimages|extracts|info&inprop=url&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&pithumbsize=200",
+  success: function( data ) {
+  data=data.query.pages;
+  var items = [];
+     for (var i in data) {
+      console.log(data[i]);
+		var img_src;
+		 if(data[i].thumbnail==undefined){
+		 img_src="";
+		 }else{
+		 img_src=data[i].thumbnail.source;
+		 }
+		 
+		 
+		 items.push( "<li class='collection-item avatar'><a target='_blank' href="+data[i].canonicalurl+"><div class='title'>"+data[i].title+"</div></a><img alt='' class='square' src="+img_src+"><p>"+data[i].extract+"</p> </li>" );
+      }
+	  
+   
+  
+ $('#articles>ul').html(items.join( "" ));
+ 
+}
+});
+  
+});
+
+  </script>
+
+ </div>
+    </div>
+  </div>
+</body>
+
+</html>
