@@ -1,93 +1,120 @@
-<!doctype html>
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
 
-<html lang="en">
+<!-- 
+
+Hello Camper!
+
+For now, the test suite only works in Chrome! Please read the README below in the JS Editor before beginning. Feel free to delete this message once you have read it. Good luck and Happy Coding! 
+
+- The freeCodeCamp Team 
+
+-->
 <head>
-  <meta charset="utf-8">
+	
 
-  <title>Jason Statham Tribute Page</title>
-  <meta name="description" content="Jason Statham Tribute Page">
-  <meta name="author" content="Golfo Vasiliou">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href='https://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
-  <!-- Compiled and minified JavaScript -->
+/* palette colours */
+$magenta: #e404cf;
+$indigo-light: #5105a3;
+$medium-violet-red: #d90f66;
+$purple: #6c0854;
+$indigo-dark: #3b046f;
+$dark-gray: #020202;
 
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <style>
-.overviewItem{
- font-weight: bold;
+body {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background: $dark-gray;
+  color: $magenta;
+  flex: 0 0 200px;
+  font-size: 16px;
+  font-family: "Pridi", serif;
 }
-td{
-padding: 1px 5px;
+
+h1 {
+  font-size: 5vw;
+  line-height: 1.5em;
 }
-  </style>
+h2 {
+  font-size: 5vw;
+  line-height: 1.2em;
+}
+
+p {
+  font-size: 1.15em;
+  line-height: 1.200em;
+  margin: 0 0 1.350em 0;
+}
+article {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 80%;
+}
+
+#img-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#image {
+  text-align: center;
+  max-width: 100%;
+  display: block;
+}
+
+figcaption {
+  margin-top: -48px;
+  font-style: italic;
+  font-size: 0.8em;
+  color: $purple;
+}
+section {
+  text-align: left;
+  margin-top: 36px;
+}
+footer {
+  margin-top: 18px;
+}
+
+a {
+  color: $medium-violet-red;
+}
+
+a:hover {
+  color: $purple;
+}
+a:visited {
+  color: $indigo-light;
+}
+
 </head>
-
 <body>
-  <div class="container center-align ">
-    <div class="row ">
-      <div class="col s10 offset-s1 ">
-        <header class="card-panel">
-          <h1>Jason Statham Tribute Page</h1>
-        </header>
-</div>
-</div>
+  <article>
+    <header id="title">
+      <h1>Ｖａｐｏｒｗａｖｅ</h1>
+      <h2 id="tribute-info">（姻ト線）</h2 </header>
+      <main id="main">
+        <div id="img-div">
+          <img id="image" src="https://i.postimg.cc/fWG2gYG8/99b81533-3137-5def-b7ac-62ff2506fb0c.jpg">
+          <figcaption id="img-caption">
+            Trippy vaporwave picture of sunset
+          </figcaption>
+        </div>
+        <section>
+          <p>
+            Vaporwave is a microgenre of electronic music and an Internet meme that emerged in the early 2010s. The style is defined by its appropriation of 1980s and 1990s mood music styles such as smooth jazz, elevator music, R&B, and lounge music, typically sampling
+            or manipulating tracks via chopped and screwed techniques and other effects. </p>
+          <p> Its surrounding subculture is sometimes associated with an ambiguous or satirical take on consumer capitalism and pop culture, and tends to be characterized by a nostalgic or surrealist engagement with the popular entertainment, technology and
+            advertising of previous decades. </p>
+          <p>It also incorporates early Internet imagery, late 1990s web design, glitch art, anime, 3D-rendered objects, and cyberpunk tropes in its cover artwork and music videos.
+          </p>
+        </section>
+      </main>
 
-        <main>
-	<div class="row">
-	<div class="col s5 offset-s1 ">
-	<h3>Overview</h3>
-	<table class="left-align">
-	<tr>
-<td class="overviewItem"> Date of Birth:</td>
- <td >26 July 1967, Shirebrook, Derbyshire, England, UK</td></tr>
- </tr>
-<td class="overviewItem">Nicknames:</td>
-<td>Jay,The Stath</td>
-</tr>
-<tr>
-<td class="overviewItem">Height:</td>
-<td>5' 10" (1,78 m)</td>
-</tr>
-</table>
-
-</div>
-<div class="col s5">
-<h3>Trade Marks</h3>
-<ul>
-<li>Deadpan, sarcastic delivery</li>
-<li>Deep, gravelly cockney voice</li>
-<li>Stubble</li>
-<li>Often works with director Guy Ritchie</li>
-</ul>
-</div></div>
-<div class="row">
-<div class="col s8 offset-s2 ">
-<h2>Biography</h2>
-<p><img class="responsive-img" src="http://www.cutandjacked.com/sites/default/files/images/Jason_Statham/Jason%20Statham%20scr2.jpg"></img></p>
-<p><strong>Jason Statham</strong> was born in Shirebrook, Derbyshire, to Eileen (Yates), a dancer, and Barry Statham, a street merchant and lounge singer. Statham has done quite a lot in a short time. He has been a Diver on the British National Diving Team and finished 12th in the World Championships in 1992. He has also been a fashion model, black market salesman and finally of course, actor. He got the audition for his debut role as Bacon in Lock, Stock and Two Smoking Barrels  (1998) through French Connection, for whom he was modeling. They became a major investor in the film and introduced Jason to Guy Ritchie, who invited him to audition for a part in the film by challenging him to impersonate an illegal street vendor and convince him to purchase fake jewelery. Jason must have been doing something right because after the success of Lock, Stock and Two Smoking Barrels (1998) he teamed up again with Guy Ritchie for Snatch (2000), with co-stars including Brad Pitt, Dennis Farina and Benicio Del Toro. After Snatch (2000) came Turn It Up (2000) with US music star Ja Rule, followed by a supporting actor role in the Sci-Fi film Ghosts of Mars (2001), Jet Li's The One (2001) and another screen partnership with Vinnie Jones in Mean Machine (2001) under Guy Ritchie's and Matthew Vaughn's SKA Films. Finally in 2002 he was cast as the lead role of Frank Martin in The Transporter (2002). Jason is also in the summer 2003 blockbuster remake of The Italian Job (1969), The Italian Job (2003), playing Handsome Rob</p>
-</div>
-</div>
-        </main>
-        <footer class="card-panel">Info taken from <a href="http://akas.imdb.com/name/nm0005458/bio?ref_=nm_ov_bio_sm">IMDB</a></footer>
-
-
-  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-  <script>
-
-
-
-  </script>
-
- </div>
-    </div>
-  </div>
+      <footer>
+        <a href="https://en.wikipedia.org/wiki/Vaporwave" target="_blank" id="tribute-link">【﻿Ｃｌｉｃｋ　ｈｅｒｅ　ｆｏｒ　ｍｏｒｅ　ＡＥＳＴＨＥＴＩＣＳ】</a>
+      </footer>
+  </article>
 </body>
-
-</html>
