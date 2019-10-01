@@ -1,0 +1,74 @@
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+<!-- 
+
+Hello Camper!
+
+For now, the test suite only works in Chrome! Please read the README below in the JS Editor before beginning. Feel free to delete this message once you have read it. Good luck and Happy Coding! 
+
+- The freeCodeCamp Team 
+
+-->
+
+<head>
+</head>
+
+<body>
+  <div class="survey">
+    <header>
+      <div class="header-inner">
+        <h1 id="title">Meal Survey</h1>
+        <p id="description">Describe your perfect meal</p>
+      </div>
+    </header>
+    <form id="survey-form">
+      <fieldset class="personal-info">
+        <legend>Personal information:</legend>
+        <label id="name-label">Name:
+					<input id="name" type="text" required placeholder="Enter your name"> </label>
+        <label id="email-label">Email:
+					<input id="email" type="email" required placeholder="Enter your e-mail"> </label>
+        <label id="number-label">Age:
+					<input id="number" type="number" min="1" max="100" placeholder="Enter your age"> </label>
+        <label> What is your favorite meal?
+					<select id="dropdown">
+						<option>Breakfast</option>
+						<option>Lunch</option>
+						<option>Dinner</option>
+					</select>
+				</label>
+      </fieldset>
+      <fieldset>
+        <legend>Meal Preferences:</legend>
+        <label>What is your favourite drink?
+					<div class="drinks">
+						<input id="coffee" type="radio" name="radioGroup" value="coffee"><label for="coffee">Coffee</label>
+        <input id="juice" type="radio" name="radioGroup" value="juice"> <label for="juice">Juice</label>
+        <input id="wine" type="radio" name="radioGroup" value="wine"> <label for="wine">Wine</label>
+        <input id="beer" type="radio" name="radioGroup" value="beer"> <label for="beer">Beer</label></div>
+  </label>
+  <label>What would you put in a sandwich?
+					<div class="sandwich-fillers">
+						<input type="checkbox" name="checkbox1" value="ham"> Ham
+						<input type="checkbox" name="checkbox2" value="cheese"> Cheese
+						<input type="checkbox" name="checkbox3" value="egg"> Egg
+						<input type="checkbox" name="checkbox4" value="tomato"> Tomato
+						<input type="checkbox" name="checkbox5" value="pineapple"> Pineapple
+						<input type="checkbox" name="checkbox2" value="mushrooms"> Mushrooms </div>
+				</label>
+  <label>What is your favourite dessert?
+					<div class="desserts">
+						<input type="radio" name="radioGroup" value="croissant"> Croissant
+						<input type="radio" name="radioGroup" value="muffin"> Muffin
+						<input type="radio" name="radioGroup" value="cake"> Cake
+						<input type="radio" name="radioGroup" value="ice-cream"> Ice-cream
+						<input type="radio" name="radioGroup" value="chocolate"> Chocolate </label>
+  </div>
+  <label>Are there any other foods or drinks that you enjoy?
+					<textarea></textarea>
+				</label>
+  <input id="submit" type="submit" value="Submit">
+  <input id="reset" type="reset" value="Reset"> </fieldset>
+  </form>
+  <footer></footer>
+  </div>
+</body>
